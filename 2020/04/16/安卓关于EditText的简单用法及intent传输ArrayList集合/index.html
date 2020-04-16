@@ -464,14 +464,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    18
+                    846
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -486,8 +486,25 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="安卓关于EditText的简单用法及intent传输ArrayList集合"><a href="#安卓关于EditText的简单用法及intent传输ArrayList集合" class="headerlink" title="安卓关于EditText的简单用法及intent传输ArrayList集合"></a>安卓关于EditText的简单用法及intent传输ArrayList集合</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">哈哈哈</span><br></pre></td></tr></table></figure>
+                <h3 id="安卓关于EditText的简单用法及intent传输ArrayList集合"><a href="#安卓关于EditText的简单用法及intent传输ArrayList集合" class="headerlink" title="安卓关于EditText的简单用法及intent传输ArrayList集合"></a>安卓关于EditText的简单用法及intent传输ArrayList集合</h3><p>EditText，文本编辑框，在现实生活中使用很多很多，比如登入页面的账号密码输入框，打电话时输入电话号码，发邮件写的邮箱，而Android Studio又仔细对这些进行细分（很实用），比如一般的文字编辑框，使用Plain Text,一些可见数字用Number，一些不可见数字字符集合用Password,需求不同，显示方式也不同，放张图，就不一一说了。</p>
+<p>![img](file:///C:\Users\admin\Documents\Tencent Files\2214896872\Image\C2C]T<del>6LOA0CR7ASU@)LQ</del>Y{0J.png)</p>
+<p>这里来一个实例，写一个学生的姓名，年龄，性别并显示出来，使用LinearLayout布局，三个编辑框都一样，直接复制粘贴改一下就行了，为了节省空间我这里就放一个，xml代码如下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;EditText</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;editText1&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:ems&#x3D;&quot;10&quot;</span><br><span class="line">        android:inputType&#x3D;&quot;textPersonName&quot;</span><br><span class="line">        android:hint&#x3D;&quot;@string&#x2F;name&quot;</span><br><span class="line">        android:text&#x3D;&quot;&quot; &#x2F;&gt;</span><br><span class="line">&lt;TextView</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;textView1&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:text&#x3D;&quot;&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
 
+<p>values下的strings添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;string name&#x3D;&quot;name&quot;&gt;姓名&lt;&#x2F;string&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ems属性表示的是编辑框的长度占几个字符。</p>
+<p>inputType表示编辑框类型。</p>
+<p>hint属性是在用户还没有输入的时候进行的半透明提示</p>
+<p>这是XML的效果图：</p>
+<p>![img](file:///C:\Users\admin\Documents\Tencent Files\2214896872\Image\C2C\SE)84[2`BQ]XBF%$XI%}U5U.png)</p>
+<p>接下来写活动，要达到用户写完提交以后显示出来。</p>
+<p>先将EditText、Button、textView作为私有的全局变量，方便后面的使用，用findViewById（）通过id号找到对应的控件，都是一样的方法，写完一个直接copy成下一个，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends Activity &#123;</span><br><span class="line">private Button button1;</span><br><span class="line">    private  Button button2;</span><br><span class="line">    private Button button3;</span><br><span class="line">    EditText editText1;</span><br><span class="line">    EditText editText2;</span><br><span class="line">    EditText editText3;</span><br><span class="line">    TextView textView1;</span><br><span class="line">    TextView textView2;</span><br><span class="line">    TextView textView3;</span><br><span class="line">     @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        button1&#x3D;findViewById(R.id.button1);</span><br><span class="line">        button2&#x3D;findViewById(R.id.button2);</span><br><span class="line">       </span><br><span class="line">        editText1&#x3D;findViewById(R.id.editText1);</span><br><span class="line">        editText2&#x3D;findViewById(R.id.editText2);</span><br><span class="line">        editText3&#x3D;findViewById(R.id.editText3);</span><br><span class="line"></span><br><span class="line">        textView1&#x3D;findViewById(R.id.textView1);</span><br><span class="line">        textView2&#x3D;findViewById(R.id.textView2);</span><br><span class="line">        textView3&#x3D;findViewById(R.id.textView3);</span><br><span class="line">         button1.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void onClick(View v) &#123;</span><br><span class="line">            &#x2F;&#x2F;参数为（名字，模式），MODE_PRIVATE为默认模式，代表该文件是私有数据，只能被应用本			&#x2F;&#x2F;身访问，在该模式下写入的内容会覆盖原文件的内容。</span><br><span class="line">            &#x2F;&#x2F;除了这种模式还有MODE_WORLD_REDABLE（可以被其他应用读取）</span><br><span class="line">           &#x2F;&#x2F;安卓为了应用共享安全，这样的方法已经行不通了</span><br><span class="line">                SharedPreferences.Editor</span><br><span class="line">                editor&#x3D;getSharedPreferences(&quot;cong&quot;,MODE_PRIVATE).edit();</span><br><span class="line">                editor.putString(&quot;name&quot;,editText1.getText().toString());</span><br><span class="line">                &#x2F;&#x2F;这里要进行类型转换</span><br><span class="line">              editor.putInt(&quot;age&quot;,Integer.parseInt(editText2.getText().toString()));</span><br><span class="line">                editor.putString(&quot;sex&quot;,editText3.getText().toString());</span><br><span class="line">                editor.apply();&#x2F;&#x2F;无返回值</span><br><span class="line">           editor.commit();&#x2F;&#x2F;直接提交一个返回值，这是同步存储的方式</span><br><span class="line">   button2.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">            @Override</span><br><span class="line">          public void onClick(View v) &#123;</span><br><span class="line">               SharedPreferences pref&#x3D;getSharedPreferences(&quot;cong&quot;,MODE_PRIVATE);</span><br><span class="line">               &#x2F;&#x2F;根据key获取值，后面为默认值</span><br><span class="line">             String name&#x3D;pref.getString(&quot;name&quot;,&quot;&quot;);</span><br><span class="line">             int age&#x3D;pref.getInt(&quot;age&quot;,0);</span><br><span class="line">              String str&#x3D;age+&quot;&quot;;</span><br><span class="line">            String sex&#x3D;pref.getString(&quot;sex&quot;,&quot;&quot;);</span><br><span class="line">             &#x2F;&#x2F;写入到textview中</span><br><span class="line">                textView1.setText(name);</span><br><span class="line">               textView2.setText(str);</span><br><span class="line">              textView3.setText(sex);</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">       &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p>![img](file:///C:\Users\admin\Documents\Tencent Files\2214896872\Image\C2C\FC803BB6D73EC4232332193736303B53.jpg)</p>
 
             </div>
             <hr/>
@@ -607,9 +624,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            安卓关于EditText的简单用法及intent传输ArrayList集合1哈哈哈
-
-
+                            安卓关于EditText的简单用法及intent传输ArrayList集合EditText，文本编辑框，在现实生活中使用很多很多，比如登入页面的账号密码输入框，打电话时输入电话号码，发邮件写的邮箱，而Android Studio又仔细对这些
                         
                     </div>
                     <div class="publish-info">
@@ -901,7 +916,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">99</span>&nbsp;字
+                class="white-color">927</span>&nbsp;字
             
             
             
